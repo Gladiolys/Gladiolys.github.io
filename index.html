@@ -13,24 +13,41 @@
     <h1>Что выведет ниже</h1>
     <div id="log"></div>
     <script>
-      navigator.permissions
-        .query({ name: "geolocation" })
-        .then((v) => {
-          const div = document.getElementById('log')
-          div.innerHTML = `${div.innerHTML} <div>Проверка прав  ${JSON.stringify(v)} ${v.toString()} Всё чётко</div>`
-        })
-        .catch((e) => {
-          const div = document.getElementById('log')
-
-          div.innerHTML = `${div.innerHTML} <div>Ошибка проверки прав  ${JSON.stringify(e)} ${e.toString()} Ошибочка</div>`
-        });
-
       window.onerror = (e) => {
-        const div = document.getElementById('log')
-        div.innerHTML = `${div.innerHTML} <div>Поймана ошибка  ${JSON.stringify(e)} Ошибка</div>`
+        const div = document.getElementById("log");
+        div.innerHTML = `${div.innerHTML} <div>Поймана ошибка  ${JSON.stringify(
+          e
+        )} Ошибка</div>`;
+      };
+
+      try {
+        navigator.permissions
+          .query({ name: "geolocation" })
+          .then((v) => {
+            const div = document.getElementById("log");
+            div.innerHTML = `${
+              div.innerHTML
+            } <div>Проверка прав  ${JSON.stringify(
+              v
+            )} ${v.toString()} Всё чётко</div>`;
+          })
+          .catch((e) => {
+            const div = document.getElementById("log");
+
+            div.innerHTML = `${
+              div.innerHTML
+            } <div>Ошибка проверки прав  ${JSON.stringify(
+              e
+            )} ${e.toString()} Ошибочка</div>`;
+          });
+      } catch (e) {
+        const div = document.getElementById("log");
+        div.innerHTML = `${
+          div.innerHTML
+        } <div>Поймана ошибка navigator.permissions
+          .query снаружи промиса ${JSON.stringify(e)} Ошибка</div>`;
       }
     </script>
     <script src="https://top-fwz1.mail.ru/js/code.js"></script>
-
   </body>
 </html>
