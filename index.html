@@ -10,15 +10,27 @@
     <title>Document</title>
   </head>
   <body>
-    <h1>СМ Консоль</h1>
-    <script src="https://top-fwz1.mail.ru/js/code.js"></script>
+    <h1>Что выведет ниже</h1>
+    <div id="log"></div>
     <script>
       navigator.permissions
         .query({ name: "geolocation" })
-        .then((v) => console.log(JSON.stringify(v), v, "Всё чётко"))
+        .then((v) => {
+          const div = document.getElementById('log')
+          div.innerHTML = `${div.innerHTML} <div>Проверка прав  ${JSON.stringify(v)} ${v.toString()} Всё чётко</div>`
+        })
         .catch((e) => {
-          console.error(JSON.stringify(e), e, "Ошибочка");
+          const div = document.getElementById('log')
+
+          div.innerHTML = `${div.innerHTML} <div>Ошибка проверки прав  ${JSON.stringify(e)} ${e.toString()} Ошибочка</div>`
         });
+
+      window.onerror = (e) => {
+        const div = document.getElementById('log')
+        div.innerHTML = `${div.innerHTML} <div>Поймана ошибка  ${JSON.stringify(e)} Ошибка</div>`
+      }
     </script>
+    <script src="https://top-fwz1.mail.ru/js/code.js"></script>
+
   </body>
 </html>
